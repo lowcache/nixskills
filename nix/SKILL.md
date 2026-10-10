@@ -55,7 +55,7 @@ Multi-domain tasks load several. A new stateful service always pulls in `imperma
 
 ## Helper: `scripts/nixops.py`
 
-Run from the flake root; exit code is the verdict. Host: `--host`, `$NIX_HOST`, or auto-detect (sole config, or `volnix`).
+Run from the flake root; exit code is the verdict. Pinned-tool form: `nix run github:lowcache/nixskills#nixops -- <cmd>`. Host: `--host`, `$NIX_HOST`, or auto-detect (sole config, or `volnix`).
 
 | Command | Does |
 |---|---|
@@ -63,10 +63,12 @@ Run from the flake root; exit code is the verdict. Host: `--host`, `$NIX_HOST`, 
 | `parse [files…]` | `nix-instantiate --parse` (default: changed/untracked `.nix`) — instant syntax check |
 | `fmt [paths…]` | `make fmt` / `nix fmt`, or `nixfmt` on given paths |
 | `opt <path> [--hm USER]` | option value in this config as JSON (NixOS, or under `home-manager.users.USER`) |
-| `drv [--save F \| --compare F]` | toplevel drvPath; compare prints `IDENTICAL` or runs `nix-diff` |
-| `build [--no-diff]` | build toplevel with logs → closure diff vs `/run/current-system` (`nvd` if present) |
+| `drv [--save F \| --compare F] [--with-rev]` | toplevel drvPath with `system.configurationRevision` pinned (else every commit/dirty tree differs); compare prints `IDENTICAL` or runs `nix-diff` |
+| `build [--against auto\|HEAD\|current\|<rev>\|none]` | build toplevel (honours `TMPDIR`/Makefile `REBUILD_TMPDIR`) → closure diff; `auto` = HEAD (temp worktree) when dirty, else running system |
+| `cache [--fail-on REGEX]` | warns on unreachable substituters, lists drvs that would build locally; regex gate for must-be-cached paths (e.g. the kernel) |
+| `evaltime [--save F \| --compare F]` | eval wall/CPU/thunks/heap of the toplevel; catch eval-cost regressions |
 | `why <pkg>` | `nix why-depends` toplevel → `pkgs.<pkg>` |
-| `untracked` | `.nix`/`flake.lock` files flakes can't see |
+| `untracked [--allow-untracked]` | `.nix`/`flake.lock` files flakes can't see (skips `statix.toml` ignore globs) |
 | `doctor` | `nix config check` (falls back to `nix doctor`, e.g. on Lix) |
 | `recall <kw…>` | grep `.memory/*.md` for lines containing all keywords |
 

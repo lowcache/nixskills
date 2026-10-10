@@ -5,6 +5,8 @@ Load whenever the working tree is volnixos (`~/.nix-config`, `/persist/home/lowc
 ## Before work
 Read `.model/CLAUDE.md` and `.memory/{state,decisions,mistakes,todo}.md`. `mistakes.md` is the repo's debugging history — search it for the symptom before diagnosing (`grep -n -i '<keyword>' .memory/mistakes.md`). Memory writes go only to `.memory/inbox/` (dated notes); `memd` owns curation and memory commits.
 
+Volatile state (current generation, open incidents, active workarounds, pins with revert conditions) is deliberately not copied here — read `.memory/state.md` and `todo.md` for it.
+
 ## Layout
 | Path | Owns |
 |---|---|
@@ -45,6 +47,7 @@ Read `.model/CLAUDE.md` and `.memory/{state,decisions,mistakes,todo}.md`. `mista
 | Droid | `make droid-check`, `make droid-plan` (laptop eval only; `--impure` required) |
 | Inputs | `make update`, `make update-nixpkgs` |
 | GC | `make trash` |
+| Kernel cache pre-check (mirrors CI) | `nixops.py cache --fail-on '/nix/store/[a-z0-9]+-linux-cachyos-latest-[0-9.]+\.drv$'` |
 | Git | `make comm`, `make push`, `make git`; `make ci` watches CI. Don't push unless authorized |
 
 ## Secrets

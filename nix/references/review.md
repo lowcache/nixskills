@@ -37,7 +37,7 @@ conventions themselves. Skip anything nixfmt/statix/deadnix already catch.
 
 ## Verification
 
-Every restructuring claimed to preserve behavior needs an identical toplevel drvPath:
+Every restructuring claimed to preserve behavior needs an identical toplevel drvPath (revision-pinned by nixops; raw drvPaths differ per commit):
 `scripts/nixops.py drv --save /tmp/before` → apply → `scripts/nixops.py drv --compare /tmp/before`.
 If it differs, explain each difference (`nix-diff`) or drop the claim. Run `nixops.py gate` on anything applied.
 

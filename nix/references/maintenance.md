@@ -12,6 +12,7 @@
 
 ## Caches / substituters
 - `nix.settings.substituters` + `trusted-public-keys` (or `extra-` variants) — keys must match or downloads are rejected silently and everything builds locally.
+- Before a big update: `nixops.py cache` — flags unreachable substituters (Nix skips them silently) and lists what would compile.
 - Check a path is cached: `nix path-info --store https://cache.nixos.org <out-path>`.
 - Settings in effect: `nix config show | grep -E 'substituters|trusted|max-jobs|cores'`.
 
