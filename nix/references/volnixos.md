@@ -1,6 +1,6 @@
 # volnixos profile
 
-Load whenever the working tree is volnixos (`~/.nix-config`, `/persist/home/lowcache/.nix-config`, or a clone with `nixosConfigurations.volnix`). These facts override generic advice in other references. Re-verify against `.model/CLAUDE.md` and `.memory/` — they are the source of truth and move faster than this file.
+Load whenever the working tree is volnixos (`~/.nix-config`, `/persist/home/lowcache/.nix-config`, or a clone with `nixosConfigurations.volnix`). This is a snapshot of how volnixos works today, not a design standard: follow it so routine changes don't break the system, and challenge it (with evidence and a migration path) when a better paradigm fits — see `design.md`. Re-verify against `.model/CLAUDE.md` and `.memory/` — they are the source of truth and move faster than this file.
 
 ## Before work
 Read `.model/CLAUDE.md` and `.memory/{state,decisions,mistakes,todo}.md`. `mistakes.md` is the repo's debugging history — search it for the symptom before diagnosing (`grep -n -i '<keyword>' .memory/mistakes.md`). Memory writes go only to `.memory/inbox/` (dated notes); `memd` owns curation and memory commits.

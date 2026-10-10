@@ -12,7 +12,8 @@ One skill, routed by task. Read this file fully, then load only the references t
 
 | Task touches | Load |
 |---|---|
-| **the volnixos repo** (always, first) | `references/volnixos.md` |
+| **the volnixos repo** (only there; skip for any other repo) | `references/volnixos.md` |
+| new subsystem, greenfield flake/host, architecture choice, "is there a better way" | `references/design.md` |
 | anything failing: parse/eval/build/activation/boot/runtime | `references/debugging.md` |
 | verifying a change, writing tests, "is it safe to switch" | `references/testing.md` |
 | writing or restructuring modules (any non-trivial edit) | `references/practices.md` |
@@ -40,12 +41,12 @@ Multi-domain tasks load several. A new stateful service always pulls in `imperma
 6. **Refactors prove themselves:** identical toplevel drvPath before/after (`drv --save` / `drv --compare`), or every difference explained.
 7. **No live activation unasked.** `build`/`dry-activate` is the default stopping point. When asked: `make switch-detached` if greetd/dbus/display/session/glibc could restart; `make gate-restart` after net-gate guest changes.
 8. **Fix the cause at its stage** (parse → eval → build → activate → runtime). No `mkForce`, `--impure`, sandbox disabling, or `allowBroken` to silence an error.
-9. **Repo conventions beat generic advice** (module layout, `vol.*` options, where persistence lives, Makefile targets).
+9. **Context, not ceiling.** A repo profile (e.g. `volnixos.md`) describes how a repo works *today* — follow it for routine edits so the system keeps working. It does not limit design: when a convention is the problem, or a different paradigm is clearly better, say so explicitly (what, why, migration path, cost to the existing workflow) and implement it when the task is design work or the user agrees. Judge every idea on Nix merits first (`design.md`), then fit it to the repo — never the reverse.
 10. **Commits:** stage everything touched, `--no-gpg-sign`, first-person message, no agent branding. `gh` + `$GH_TOKEN` as fallback. Don't push unless authorized.
 
 ## Workflow
 
-1. **Orient** — `volnixos.md` + `.model/CLAUDE.md` + `.memory/`; read the target module and its importers.
+1. **Orient** — repo profile + agent docs (`.model/CLAUDE.md`, `CLAUDE.md`) + `.memory/` if present; read the target module and its importers. For design work, start from the problem and `design.md`, then map onto the repo.
 2. **Verify facts** — options/packages (invariant 1); `git log -p -- <file>` for why things are the way they are.
 3. **Edit** — minimal, idiomatic (`practices.md`); comments only for non-obvious why.
 4. **Test** — escalate per `testing.md`: parse → gate → build+closure diff → dry-activate → VM/NixOS test.

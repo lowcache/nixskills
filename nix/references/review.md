@@ -28,8 +28,12 @@ narrows it. Read whole touched files; judge the diff in context.
 9. **Comments.** Comments that restate code, or narrate history whose conclusion fits one line
    (history goes to `.memory/` or the commit). Keep load-bearing "what breaks if changed" reasoning.
 
-Flag deviations from the repo's conventions, not the conventions themselves. Skip anything
-nixfmt/statix/deadnix already catch.
+10. **Paradigm.** Where a whole convention or mechanism costs more than an available alternative
+   (`design.md`), report it as a separate **paradigm** finding: current approach, proposed one,
+   concrete payoff, migration steps, risk. Never mixed into ordinary findings or applied silently.
+
+Ordinary findings flag deviations from the repo's conventions; paradigm findings question the
+conventions themselves. Skip anything nixfmt/statix/deadnix already catch.
 
 ## Verification
 
